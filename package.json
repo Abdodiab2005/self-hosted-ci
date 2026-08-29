@@ -1,0 +1,18 @@
+{
+  "name": "leviro-ci-controller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "type": "module",
+  "dependencies": {
+    "@octokit/auth-app": "^8.3.0",
+    "@octokit/rest": "^22.0.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}
