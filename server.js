@@ -815,6 +815,24 @@ function removeQueuedJob(
   );
 }
 
+function isManagedWorkflowJob(
+  payload,
+) {
+  const labels =
+    payload.workflow_job
+      ?.labels;
+
+  return (
+    Array.isArray(labels) &&
+    labels.includes(
+      "self-hosted",
+    ) &&
+    labels.includes(
+      RUNNER_LABEL,
+    )
+  );
+}
+
 async function handleQueued(
   payload,
 ) {
@@ -969,6 +987,21 @@ function handleCompleted(
 async function handleWorkflowJob(
   payload,
 ) {
+  const job =
+    payload.workflow_job;
+
+  if (
+    !isManagedWorkflowJob(
+      payload,
+    )
+  ) {
+    console.log(
+      `[CI] Ignoring ${payload.action} ${payload.repository.full_name} job ${job?.id ?? "unknown"}. Labels=${JSON.stringify(job?.labels ?? [])}`,
+    );
+
+    return;
+  }
+
   switch (payload.action) {
     case "queued":
       await handleQueued(
