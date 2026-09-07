@@ -1,0 +1,6 @@
+node_modules/
+.env
+*.pem
+data/
+server.js.bak*
+npm-debug.log*
